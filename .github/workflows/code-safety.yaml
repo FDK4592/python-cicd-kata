@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - main
+      - features/*
   workflow_call:
 jobs:
   check-linter:

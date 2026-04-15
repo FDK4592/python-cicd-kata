@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - features/*
 jobs:
   code-safety:
     uses: ./.github/workflows/code-safety.yaml

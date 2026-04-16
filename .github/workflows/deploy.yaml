@@ -13,10 +13,13 @@ jobs:
     needs: code-safety
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
-          username:  ${{ vars.DOCKERHUB_USERNAME_3 }}
+          username: ${{ vars.DOCKERHUB_USERNAME_3 }}
           password: ${{ secrets.DOCKERHUB_PASSWORD_3 }}
 
       - name: Set up QEMU
@@ -29,11 +32,11 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags:  ${{ vars.DOCKERHUB_USERNAME_3 }}/simple-service:latest
+          tags: ${{ vars.DOCKERHUB_USERNAME_3 }}/simple-service:latest
 
   deploy:
     needs: push-to-registry
     runs-on: ubuntu-latest
     steps:
       - name: Deploy latest image tag in Render
-        run: curl "${{ secrets.DEPLOY_WEBHOOK_URL }}&imgURL=docker.io%2F ${{ vars.DOCKERHUB_USERNAME_3 }}%2Fsimple-service%3Alatest"
+        run: curl "${{ secrets.DEPLOY_WEBHOOK_URL }}&imgURL=docker.io%2F${{ vars.DOCKERHUB_USERNAME_3 }}%2Fsimple-service%3Alatest"

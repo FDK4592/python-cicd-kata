@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from app.application.get_dice_roll import get_dice_roll
 
 
